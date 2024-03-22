@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stock Portfolio
+{% endblock %}
+
+{% block main %}
+<div class="container-xxl my-5" >
+    <h3> Portfolio</h3>
+      <table class="timetable table table-striped table-bordered">
+          <caption class = "tableCaption">Stock Portfolio</caption>
+          <thead>
+            <tr>
+              <th scope="col">Ticker</th>
+              <th scope="col">Units Owned</th>
+              <th scope="col">Market Price</th>
+              <th scope="col">Holding Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for holding in user_portfolio %}
+            <tr>
+              <td>{{holding["ticker"]}}</td>
+              <td>{{holding["units_held"]}}</td>
+              <td>{{usd(holding["price"])}}</td>
+              <td>{{usd(holding["price"]*holding["units_held"])}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <table class="timetable table table-striped table-bordered">
+            <caption class = "tableCaption">Total Portfolio Value</caption>
+            <thead>
+              <tr>
+                <th scope="col">Stock Value</th>
+                <th scope="col">Cash</th>
+                <th scope="col">Total Portfolio Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{usd(stock_value)}}</td>
+                <td>{{usd(user_info["cash"])}}</td>
+                <td><b>{{usd(stock_value + user_info["cash"])}}</b></td>
+              </tr>
+            </tbody>
+          </table>
+  </div>
+{% endblock %}

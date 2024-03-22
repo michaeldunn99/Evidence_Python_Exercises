@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+<div class="container-xxl my-5" >
+    <h3> Stock Quote</h3>
+      <table class="timetable table table-striped table-bordered">
+          <caption class = "tableCaption">Price as at {{symbol_dict["date"]}}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Ticker</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{symbol_dict["symbol"]}}</td>
+              <td>{{usd(symbol_dict["price"])}}</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+{% endblock %}

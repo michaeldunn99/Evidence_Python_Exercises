@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stock Portfolio
+{% endblock %}
+
+{% block main %}
+<div class="container-xxl my-5" >
+    <h3> {{user_info["username"]}}'s Transaction History</h3>
+      <table class="timetable table table-striped table-bordered">
+          <caption class = "tableCaption">Transaction History up to {{time}}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Ticker</th>
+              <th scope="col">Transaction Type</th>
+              <th scope="col">Price</th>
+              <th scope="col">Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for holding in user_transactions %}
+            <tr>
+              <td>{{holding["ticker"]}}</td>
+              <td>{{holding["transaction_type"]}}</td>
+              <td>{{usd(holding["price"])}}</td>
+              <td>{{holding["volume"]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+  </div>
+{% endblock %}
