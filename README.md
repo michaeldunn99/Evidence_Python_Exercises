@@ -4,7 +4,7 @@ This repository stores the source code for selected Python exercises completed a
 
 ## Finance
 
-"Finance" is a flask application in which users can simulate buying and selling stocks: the website uses the Yahoo Finance API to pull live stock prices.
+"Finance" is a basic flask application in which users can simulate buying and selling stocks: the website uses the Yahoo Finance API to pull live stock prices.
 
 The exercise was part of the CS50X course (and so uses the CS50 library which implements a version of SQL Alchemy).
 

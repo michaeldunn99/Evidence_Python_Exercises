@@ -62,7 +62,6 @@ def buy():
     """Buy shares of stock"""
     if request.method == "POST":
         if (not (symbol := request.form.get("symbol"))) or (not (symbol_dict := lookup(symbol))):
-            # we should add in a feature that adds the stock tickers to a list that updates in real time as people type
             return apology("enter a valid stock symbol")
 
         try:
@@ -238,7 +237,6 @@ def quote():
     """Get stock quote."""
     if request.method == "POST":
         if (not (symbol := request.form.get("symbol"))) or (not (symbol_dict := lookup(symbol))):
-            # we should add in a feature that adds the stock tickers to a list that updates in real time as people type
             return apology("enter a valid stock symbol")
         else:
             return render_template("quoted.html", symbol_dict=symbol_dict, usd=usd)
@@ -254,19 +252,11 @@ def register():
     session.clear()
 
     if request.method == "POST":
-        # Ensure username was submitted
 
-        # want to use some javascript here and perhaps a helper function that does some regex checks on the password/username and ideally have some javascript / bootstrap features with pop ups
-        # TO-DO: improve registration experience
-        # MVP - This can be improved from a minimal viable product
 
         # Ensure username was submitted
         if not (usern_reg := request.form.get("username").lower()):
             return apology("must provide username", 400)
-
-        # Ensure username was submitted appropriately
-        # elif not(check_username(usern_reg)):
-        #    return apology("usernames are case insensitive, must be 7-20 characters, can only contain letters, numbers and underscores, and must contain a number")
 
         # Ensure username not already taken
         elif (db.execute("SELECT username FROM users WHERE username = ?", usern_reg)):
@@ -288,22 +278,7 @@ def register():
         elif not (passw_reg == passw_conf):
             return apology("Passwords must match", 400)
 
-        # Ensure first name and surname entered
-
-        # elif not (forename := request.form.get("forename")):
-        #   return apology("Enter a forename", 403)
-
-        # elif not (surname := request.form.get("surname")):
-        #    return apology("Enter a surname", 403)
-
-        # question - because the table has autoincrement and cash has a default value, do we only need to add the other row columns to auto-generate entries?
-        # add new row in table (id and cash will be specified automatically)
-        # db.execute("INSERT INTO users (username, hash, forename, surname) VALUES(?, ?, ?, ?)",usern_reg, generate_password_hash(passw_reg), forename, surname)
         db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", usern_reg, generate_password_hash(passw_reg))
-
-        # want a bootstrap pop-up that says successfully registered if this line executes
-
-        # want to add a captha "are you a human" situation
 
         user_id = db.execute("SELECT id FROM users WHERE username = ?", usern_reg)[0]["id"]
 
@@ -323,7 +298,6 @@ def sell():
 
     if request.method == "POST":
         if (not (symbol := request.form.get("symbol"))) or (not (symbol_dict := lookup(symbol))):
-            # we should add in a feature that adds the stock tickers to a list that updates in real time as people type
             return apology("enter a valid stock symbol")
 
         try:
@@ -376,8 +350,6 @@ def sell():
                        user_stock_holding['units_held'], session["user_id"], symbol)
         else:
             db.execute("DELETE FROM holdings WHERE user_id = ? AND ticker = ?", session["user_id"], symbol)
-
-        # TO-DO: ideally would have a pop-up saying that the stock has been sold successfully
 
         # redirect to the homepage
         return redirect("/")

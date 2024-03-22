@@ -26,7 +26,7 @@ def after_request(response):
 def index():
     if request.method == "POST":
 
-        # TODO: Add the user's entry into the database
+        # : Add the user's entry into the database
         name = request.form.get("name")
         month = request.form.get("month")
         day = request.form.get("day")
@@ -37,16 +37,14 @@ def index():
 
     else:
 
-        # TODO: Display the entries in the database on index.html
-        # how can we send the data to the html file
-        #load the entries of the database in a variable, then pass that variable to the render template function?
-        #likely we want a list of dictionaries - think this is what the db.execute function will do
+
+        # Display the entries in the database on index.html
+
 
         birthday_data = db.execute("SELECT * FROM birthdays")
 
         return render_template("index.html", birthday_data=birthday_data)
 
-#TO-DO - ADD A DEREGISTER ROUTE
 @app.route("/deleteBirthday", methods=["POST"])
 def deleteBirthday():
 
